@@ -1,66 +1,47 @@
-## Foundry
+# Server-side Web Proof Generation for Twitter API Data
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This example demonstrates how to use [vlayer Web Proof](https://book.vlayer.xyz/features/web.html) to notarize an HTTP request to:
 
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```
+https://api.twitter.com/2/users/by/username/{twitterHandle}?user.fields=public_metrics
 ```
 
-### Test
+It generates a **Zero-Knowledge Proof (ZK proof)** based on the API response, which can then be verified by an **on-chain EVM smart contract**.
 
-```shell
-$ forge test
+---
+
+## How to Run
+
+### 1. Build Contracts
+```sh
+cd {projectPath}
+forge build
 ```
 
-### Format
-
-```shell
-$ forge fmt
+### 2. Install JS Dependencies
+```sh
+cd vlayer
+bun install
 ```
 
-### Gas Snapshots
+### 3. Set Twitter API Bearer Token
+Create a `.env.local` file inside the `vlayer` directory and set your bearer token:
 
-```shell
-$ forge snapshot
+```
+X_API_BEARER_TOKEN=your_token_here
 ```
 
-### Anvil
-
-```shell
-$ anvil
+### 4. Start Local Devnet
+```sh
+bun run devnet:up
 ```
 
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+### 5. Run Proving Process
+```sh
+bun run prove:dev
 ```
 
-### Cast
+---
 
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+📘 You can find a full walkthrough in the vlayer documentation:  
+👉 [Getting Started – First Steps](https://book.vlayer.xyz/getting-started/first-steps.html)
